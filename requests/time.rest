@@ -1,0 +1,7 @@
+GET http://localhost:3001/info/
+Content-Type: application/json
+
+{
+    "name":"sample",
+    "time":"Thu, Mar 06 2025 08:21:30 GMT+0200 (Eastern Europe Standard Time)"
+}
