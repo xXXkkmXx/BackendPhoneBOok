@@ -1,9 +1,12 @@
 const express = require('express');
 const morgan = require('morgan');
+const mongoose = require('mongoose');
 const cors = require('cors');
+require('dotenv').config();
+const Person = require('./mongo');
 const app = express();
 
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT
 
 numbers = [
     { 
@@ -33,7 +36,6 @@ app.use(cors());
 app.use(express.json());
 app.use(morgan((tkn,req,res)=>{
   return[
-    '\x1b[32m',
     tkn.method(req,res),
     tkn['url'](req,res),
     tkn.status(req,res),'-',
@@ -74,12 +76,15 @@ app.post('/api/persons',(request,response)=>{
 
 app.get('/api/persons/:id',(request,response)=>{
   const id = request.params.id;
-  const person = numbers.find(person => person.id == id);
-  response.json(person)
+  Person.find({id:id}).then(person=>{
+    response.json(person);
+  })
 })
 
 app.get('/api/persons/',(request,response)=>{
-    response.json(numbers)
+  Person.find({}).then( person => {
+    response.json(person);
+  })
 });
 
 app.get('/info',(request,response)=>{

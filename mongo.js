@@ -1,10 +1,16 @@
 const mongoose = require('mongoose');
 const passowrd = process.argv[2];
-
-const URL = `mongodb+srv://jamax382:${passowrd}@fullstackproject.4xxwf.mongodb.net/peoplesNumbers?retryWrites=true&w=majority&appName=FullstackProject`;  
+const URL = process.env.MONGODB_URI;
 
 mongoose.set('strictQuery',false);
-mongoose.connect(URL);
+mongoose.connect(URL)  
+  .then(result => {
+    console.log('\x1b[32m connected to MongoDB\x1b[00m');
+  })
+  .catch(error => {
+    console.log('\x1b[31m error connecting to MongoDB\x1b[00m',error.message);
+  });
+
 
 const personSchema = new mongoose.Schema({
     id:Intl,
@@ -12,27 +18,12 @@ const personSchema = new mongoose.Schema({
     number:String,
 })
   
-const Person = mongoose.model('Person',personSchema);
+personSchema.set('toJSON',{
+    transform : (document,returnedObject) =>{
+        returnedObject.id = returnedObject._id.toString();
+        delete returnedObject._id;
+        delete returnedObject._v;
+    }
+})
 
-if(process.argv.length > 3){
-    const name = process.argv[3];
-    const number = process.argv[4];
-    
-    const person = new Person({
-        id:2,
-        name:name,
-        number:number,
-    })
-    
-    person.save().then(result => {
-        console.log("added new number");
-    })
-    mongoose.connection.close();
-}else{
-    Person.find({}).then(result=>{
-        result.forEach(person=>{
-        console.log(person);    
-      });
-    })
-    mongoose.connection.close();
-}
+module.exports = mongoose.model('Person',personSchema);
