@@ -1,8 +1,39 @@
 const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
+const mongoose = require('mongoose');
 const app = express();
+
 const PORT = process.env.PORT || 3001;
+
+if(process.argv.length < 3){
+  console.log("give password argument");
+  process.exit(1);
+}
+
+const passowrd = process.argv[2];
+const URL = $`mongodb+srv://jamax382:${passowrd}@fullstackproject.4xxwf.mongodb.net/?retryWrites=true&w=majority&appName=FullstackProject`;
+
+mongoose.set('strictQuery',false);
+mongoose.connect(URL);
+
+const personSchema = new mongoose.Schema({
+  id:Intl,
+  name:String,
+  number:String,
+})
+
+const Person = mongoose.model('Person',personSchema);
+const person = new Person({
+  id: 1,
+  name: "Arto Hellas", 
+  number: "040-123456",
+});
+
+person.save().then(result=>{
+  console.log('saved a number');
+  mongoose.connection.close();
+})
 
 numbers = [
     { 
