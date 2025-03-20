@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const passowrd = process.argv[2];
 const URL = process.env.MONGODB_URI;
 
 mongoose.set('strictQuery',false);
@@ -13,7 +12,6 @@ mongoose.connect(URL)
 
 
 const personSchema = new mongoose.Schema({
-    id:Intl,
     name:String,
     number:String,
 })
