@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
-    "dev": "node --watch index.js"
+    "dev": "node --watch index.js",
+    "mongo":"node --watch mongo.js GnQj8eLENNsjrpKm"
   },
   "author": "xXkkmXx",
   "license": "ISC",
