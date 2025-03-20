@@ -1,8 +1,8 @@
 const express = require('express');
 const morgan = require('morgan');
-const mongoose = require('mongoose');
 const cors = require('cors');
 require('dotenv').config();
+
 const Person = require('./mongo');
 const app = express();
 
@@ -46,7 +46,7 @@ app.post('/api/persons',(request,response)=>{
 })
 
 app.get('/api/persons/:id',(request,response)=>{
-  Person.find(request.params.id)
+  Person.findById(request.params.id)
   .then(person => {
     if(person){
       response.json(person);
