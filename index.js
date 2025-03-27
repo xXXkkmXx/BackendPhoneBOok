@@ -27,7 +27,9 @@ app.get('/',(request,response)=>{
 
 app.delete('/api/persons/:id',(request,response)=>{
   const id = request.params.id;
-  Person.findOneAndDelete(id);
+  Person.findByIdAndDelete(id).catch(err=>{
+    throw err;
+  })
   response.status(204).end()
 })
 
@@ -40,10 +42,8 @@ app.post('/api/persons/',(request,response)=>{
     name: body.content,
     number: body.number || 39213219039210
   });
-
-  number.save().then(savedNumber => {
-    response.json(savedNumber);
-  });
+  
+  Person.insertOne(number);
 })
 
 app.get('/api/persons/:id',(request,response)=>{
