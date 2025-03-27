@@ -39,7 +39,7 @@ app.post('/api/persons/',(request,response)=>{
   //   return response.status(404).json({error: "content missing"});
   // }
   const number = new Person({
-    name: body.content,
+    name: body.name,
     number: body.number || 39213219039210
   });
   
