@@ -35,9 +35,9 @@ app.delete('/api/persons/:id',(request,response)=>{
 
 app.post('/api/persons/',(request,response)=>{
   const body = request.body;
-  if(!body.content){
-    return response.status(404).json({error: "content missing"});
-  }
+  // if(!body.content){
+  //   return response.status(404).json({error: "content missing"});
+  // }
   const number = new Person({
     name: body.content,
     number: body.number || 39213219039210
