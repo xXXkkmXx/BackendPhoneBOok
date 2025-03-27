@@ -35,7 +35,6 @@ app.delete('/api/persons/:id',(request,response)=>{
 
 app.post('/api/persons/',(request,response)=>{
   const body = request.body;
-  console.log(body.content);
   if(!body.content){
     return response.status(404).json({error: "content missing"});
   }
@@ -65,6 +64,7 @@ app.get('/api/persons/:id',(request,response)=>{
 })
 
 app.get('/api/persons/',(request,response)=>{
+  console.log(request.body.content);
   Person.find({}).then( person => {
     response.json(person);
   })
