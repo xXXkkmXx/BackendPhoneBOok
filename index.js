@@ -35,6 +35,7 @@ app.delete('/api/persons/:id',(request,response)=>{
 
 app.post('/api/persons/',(request,response)=>{
   const body = request.body;
+  console.log(body.content);
   if(!body.content){
     return response.status(404).json({error: "content missing"});
   }
@@ -43,7 +44,9 @@ app.post('/api/persons/',(request,response)=>{
     number: body.number || 39213219039210
   });
   
-  Person.insertOne(number);
+  Person.insertOne(number).then(()=>{
+    response.json(number)
+  });
 })
 
 app.get('/api/persons/:id',(request,response)=>{
