@@ -27,6 +27,10 @@ app.get('/',(request,response)=>{
 
 app.delete('/api/persons/:id',(request,response)=>{
   const id = request.params.id;
+  Person.deleteOne({_id:id},(err,obj)=>{
+    if(err) throw err;
+    console.log(`The number ${obj.name} have deleted!`);
+  })
   response.status(204).end()
 })
 
