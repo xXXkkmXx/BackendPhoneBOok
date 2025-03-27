@@ -4,6 +4,15 @@ POST http://localhost:3001/api/persons
 Content-Type: application/json
 
 {
-    "content": "Drag",
+    "name": "Drag",
     "number" : "389219302813928"
+}
+
+###
+PATCH http://localhost:3001/api/persons/67dc0fd2b969b675a27c971c
+Content-Type: application/json
+
+{
+    "name": "Ann",
+    "number": "2417214219787421"
 }

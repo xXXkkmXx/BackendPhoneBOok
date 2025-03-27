@@ -35,9 +35,9 @@ app.delete('/api/persons/:id',(request,response)=>{
 
 app.post('/api/persons/',(request,response)=>{
   const body = request.body;
-  // if(!body.content){
-  //   return response.status(404).json({error: "content missing"});
-  // }
+  if(!body.name){
+    return response.status(404).json({error: "content missing"});
+  }
   const number = new Person({
     name: body.name,
     number: body.number || 39213219039210
@@ -47,6 +47,11 @@ app.post('/api/persons/',(request,response)=>{
     response.json(number)
   });
 })
+app.patch('/api/persons/:id',(request,response)=>{
+  const body = request.body;
+  const id = request.params.id;
+  Person.findByIdAndUpdate(id,{$set : body}).then(response.json(body));
+});
 
 app.get('/api/persons/:id',(request,response)=>{
   Person.findById(request.params.id)
