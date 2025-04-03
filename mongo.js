@@ -15,11 +15,14 @@ const personSchema = new mongoose.Schema({
     name:String,
     number:{
       type: String,
-      validate: (v)=>{
-        return /\d{2}-\d{6}/.test(v);
+      validate: {
+        validator: (v)=>{
+          return /\d{2}-\d{6}||\d{3}-\d{5}/.test(v);
+        },
+        message: props => `The number ${props.value} isn't valid`
       },
-      message: props => `The number ${props.value} isn't valid`
-    },
+
+    }
 })
   
 personSchema.set('toJSON',{

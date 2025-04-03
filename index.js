@@ -38,14 +38,17 @@ app.post('/api/persons/',(request,response)=>{
   if(!body.name){
     return response.status(404).json({error: "content missing"});
   }
+  
   const number = new Person({
     name: body.name,
-    number: body.number || 39213219039210
-  });
+    number: body.number
+  })
   
-  Person.insertOne(number).then(()=>{
-    response.json(number)
-  });
+  error = number.validateSync();
+  
+  // Person.insertOne(number).then(()=>{
+  //   response.json(number)
+  // });
 });
 
 app.patch('/api/persons/:id',(request,response)=>{
