@@ -8,6 +8,18 @@ const app = express();
 
 const PORT = process.env.PORT
 
+const errorHandler = (error,request,response,next) => {
+  console.log(error.message);
+  if(error.name == 'CastError'){
+    return response.status(404).send({error:"malformatted"})
+  }else if(error.name == 'ValidationError'){
+    return response.status(400).json({error:error.message})
+  }
+  next(error)
+}
+
+
+app.use(errorHandler);
 app.use(express.static('dist'));
 app.use(cors());
 app.use(express.json());
@@ -33,7 +45,7 @@ app.delete('/api/persons/:id',(request,response)=>{
   response.status(204).end()
 })
 
-app.post('/api/persons/',(request,response)=>{
+app.post('/api/persons/',(request,response,next)=>{
   const body = request.body;
   if(!body.name){
     return response.status(404).json({error: "content missing"});
@@ -43,12 +55,18 @@ app.post('/api/persons/',(request,response)=>{
     name: body.name,
     number: body.number
   })
-  
+
   error = number.validateSync();
   
-  // Person.insertOne(number).then(()=>{
-  //   response.json(number)
-  // });
+  if(!error){
+    Person.insertOne(number).then(()=>{
+    response.json(number)
+    }).catch(err =>{
+      next(err)
+    });
+  }else{
+    response.json({err:"there is error"});
+  }
 });
 
 app.patch('/api/persons/:id',(request,response)=>{
