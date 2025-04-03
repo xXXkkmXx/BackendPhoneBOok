@@ -46,7 +46,8 @@ app.post('/api/persons/',(request,response)=>{
   Person.insertOne(number).then(()=>{
     response.json(number)
   });
-})
+});
+
 app.patch('/api/persons/:id',(request,response)=>{
   const body = request.body;
   const id = request.params.id;
