@@ -65,7 +65,7 @@ app.post('/api/persons/',(request,response,next)=>{
       next(err)
     }); 
   }else{
-    return response.status(406).send({err:"wrong format of number"});
+    return response.status(406).send({error:"wrong format of number"});
   }
 });
 
