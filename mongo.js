@@ -12,7 +12,10 @@ mongoose.connect(URL)
 
 
 const personSchema = new mongoose.Schema({
-    name:String,
+    name:{
+      type:String,
+      minLength:3
+    },
     number:{
       type: String,
       minLength: 8,
