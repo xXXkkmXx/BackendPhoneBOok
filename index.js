@@ -63,9 +63,9 @@ app.post('/api/persons/',(request,response,next)=>{
     response.json(number)
     }).catch(err =>{
       next(err)
-    });
+    }); 
   }else{
-    response.json({err:"there is error"});
+    return response.status(100).json({err:"there is error"});
   }
 });
 

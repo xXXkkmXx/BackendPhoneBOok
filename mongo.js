@@ -15,14 +15,13 @@ const personSchema = new mongoose.Schema({
     name:String,
     number:{
       type: String,
-      validate: {
-        length:8,
+      minLength: 8,
+      require: true,
+      validate:{
         validator: (v)=>{
-          return /\d{2}-\d{6}||\d{3}-\d{5}/.test(v);
-        },
-        message: props => `The number ${props.value} isn't valid`
-      },
-
+          return /\d{2}-\d{6}/.test(v) || /\d{3}-\d{5}/.test(v)
+        }
+      }
     }
 })
   
