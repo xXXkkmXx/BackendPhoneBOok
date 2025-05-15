@@ -3,7 +3,8 @@ const morgan = require('morgan');
 const cors = require('cors');
 require('dotenv').config();
 
-const Person = require('./mongo');
+const Person = require('./model/Person');
+const Mongo = require('./mongo.js');
 const app = express();
 
 const PORT = process.env.PORT
